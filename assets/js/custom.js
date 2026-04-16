@@ -818,7 +818,7 @@ jQuery(document).ready(function () {
         // mb.YTPlayer — opciones en JS (data-property + jQuery.data() suelen romper el eval interno del plugin)
         if ($("#bgndVideo").length) {
             $("#bgndVideo").YTPlayer({
-                videoURL: "https://www.youtube.com/watch?v=8cIQ9MWgah4",
+                videoURL: "https://www.youtube.com/watch?v=P9vm1Cc4r0A",
                 containment: "self",
                 autoPlay: true,
                 mute: true,
@@ -833,6 +833,22 @@ jQuery(document).ready(function () {
                 useOnMobile: true
             });
         }
+
+        (function hhPageLoader() {
+            var $loader = $('#hh-page-loader');
+            if (!$loader.length) {
+                return;
+            }
+            $('body').addClass('hh-page-loading');
+            setTimeout(function () {
+                $loader.addClass('hh-page-loader--hide');
+                $('body').removeClass('hh-page-loading');
+                $loader.removeAttr('aria-busy').attr('aria-hidden', 'true');
+                setTimeout(function () {
+                    $loader.remove();
+                }, 500);
+            }, 5000);
+        })();
 
         // Contact modal: close mobile menu when opening; optional legacy contact.html links
         $('#contactModal').on('show.bs.modal', function () {
