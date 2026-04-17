@@ -861,36 +861,6 @@ jQuery(document).ready(function () {
             e.preventDefault();
             $('#contactModal').modal('show');
         });
-        $('#contact-modal-form').on('submit', function (e) {
-            e.preventDefault();
-            var form = this;
-            var $feedback = $('#contact-modal-feedback');
-            if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            $feedback.removeClass('d-none').text('Thank you. We have received your message.');
-            $(form).find('input[type="text"], input[type="email"], input[type="tel"], textarea').val('');
-            setTimeout(function () {
-                $('#contactModal').modal('hide');
-                $feedback.addClass('d-none').text('');
-            }, 2200);
-        });
-
-        $('#home-contact-form').on('submit', function (e) {
-            e.preventDefault();
-            var form = this;
-            var $feedback = $('#home-contact-feedback');
-            if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            $feedback.removeClass('d-none').text('Thank you. We have received your message.');
-            $(form).find('input, textarea').val('');
-            setTimeout(function () {
-                $feedback.addClass('d-none').text('');
-            }, 5000);
-        });
 
         // In Production 2026 — modal galleries (Owl slider)
         function hhInitProductionCarousel($el, startIndex) {

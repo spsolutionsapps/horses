@@ -738,7 +738,6 @@ It is a platform for cultural visibility that positions countries, brands and in
             </div>
             <div class="modal-body">
                 <p class="contact-modal__intro">Send us a message and we will get back to you as soon as we can.</p>
-                <div id="contact-modal-feedback" class="alert alert-success d-none" role="alert"></div>
                 <form id="contact-modal-form">
                     <div class="form-group">
                         <label for="contactModalName">Name</label>
@@ -804,49 +803,77 @@ It is a platform for cultural visibility that positions countries, brands and in
 <script src="assets/js/custom.js"></script>
 
 <script>
-document.getElementById('contact-modal-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const form = this;
-    const feedback = document.getElementById('contact-modal-feedback');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    const formData = {
-        name: form.querySelector('#contactModalName').value,
-        email: form.querySelector('#contactModalEmail').value,
-        phone: form.querySelector('#contactModalPhone').value,
-        message: form.querySelector('#contactModalMessage').value
-    };
-    
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    
-    try {
-        const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        if (response.ok) {
-            feedback.className = 'alert alert-success';
-            feedback.textContent = 'Message sent successfully! We will get back to you soon.';
-            feedback.classList.remove('d-none');
-            form.reset();
-        } else {
-            throw new Error('Failed to send message');
+(function () {
+    async function postContact(formData, feedbackEl, form, submitBtn, sendingLabel, defaultLabel) {
+        var labelEl = submitBtn.querySelector('.txt') || submitBtn;
+        submitBtn.disabled = true;
+        labelEl.textContent = sendingLabel;
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            var errText = '';
+            try {
+                var data = await response.json();
+                if (data && data.error) errText = data.error;
+            } catch (ignore) {}
+            if (response.ok) {
+                feedbackEl.className = 'alert alert-success';
+                feedbackEl.textContent = 'Message sent successfully! We will get back to you soon.';
+                feedbackEl.classList.remove('d-none');
+                form.reset();
+            } else {
+                feedbackEl.className = 'alert alert-danger';
+                feedbackEl.textContent = errText || 'Failed to send message. Please try again.';
+                feedbackEl.classList.remove('d-none');
+            }
+        } catch (error) {
+            feedbackEl.className = 'alert alert-danger';
+            feedbackEl.textContent = 'Could not reach the server. If you opened this page as a file, use "vercel dev" or deploy to Vercel.';
+            feedbackEl.classList.remove('d-none');
+        } finally {
+            submitBtn.disabled = false;
+            labelEl.textContent = defaultLabel;
         }
-    } catch (error) {
-        feedback.className = 'alert alert-danger';
-        feedback.textContent = 'Failed to send message. Please try again.';
-        feedback.classList.remove('d-none');
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send message';
     }
-});
+
+    document.getElementById('contact-modal-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var form = this;
+        if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        var feedback = document.getElementById('contact-modal-feedback');
+        var submitBtn = form.querySelector('button[type="submit"]');
+        postContact({
+            name: document.getElementById('contactModalName').value,
+            email: document.getElementById('contactModalEmail').value,
+            phone: document.getElementById('contactModalPhone').value,
+            message: document.getElementById('contactModalMessage').value
+        }, feedback, form, submitBtn, 'Sending...', 'Send message');
+    });
+
+    document.getElementById('home-contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var form = this;
+        if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        var feedback = document.getElementById('home-contact-feedback');
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var defaultTxt = (submitBtn.querySelector('.txt') || submitBtn).textContent.trim();
+        postContact({
+            name: document.getElementById('homeContactName').value,
+            email: document.getElementById('homeContactEmail').value,
+            phone: '',
+            message: document.getElementById('homeContactMessage').value
+        }, feedback, form, submitBtn, 'Sending...', defaultTxt);
+    });
+})();
 </script>
 
 
