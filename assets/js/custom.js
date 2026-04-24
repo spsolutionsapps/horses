@@ -885,6 +885,44 @@ jQuery(document).ready(function () {
                 $el.trigger('to.owl.carousel', [idx, 0]);
             }, 100);
         }
+
+        function hhInitProductionSwipers() {
+            if (typeof Swiper === 'undefined') {
+                return;
+            }
+            var baseOpts = {
+                effect: 'cards',
+                grabCursor: true,
+                speed: 480,
+                rewind: true,
+                cardsEffect: {
+                    slideShadows: true,
+                    rotate: true,
+                    perSlideRotate: 14,
+                    perSlideOffset: 11
+                }
+            };
+            var kingEl = document.querySelector('#swiperProductionKing');
+            if (kingEl && !kingEl.swiper) {
+                new Swiper(kingEl, Object.assign({}, baseOpts, {
+                    pagination: {
+                        el: kingEl.querySelector('.production-card-swiper__pagination'),
+                        clickable: true
+                    }
+                }));
+            }
+            var azEl = document.querySelector('#swiperProductionAz');
+            if (azEl && !azEl.swiper) {
+                new Swiper(azEl, Object.assign({}, baseOpts, {
+                    pagination: {
+                        el: azEl.querySelector('.production-card-swiper__pagination'),
+                        clickable: true
+                    }
+                }));
+            }
+        }
+        hhInitProductionSwipers();
+
         var productionKingSlide = 0;
         var productionAzSlide = 0;
         $('#productionModalKing, #productionModalAz').on('show.bs.modal', function () {
