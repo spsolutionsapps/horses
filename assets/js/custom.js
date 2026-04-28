@@ -1,35 +1,4 @@
-/***************************************************************************************************************
-||||||||||||||||||||||||||||        CUSTOM SCRIPT FOR EQUESTRIAN                       |||||||||||||||||||||||||
-****************************************************************************************************************
-||||||||||||||||||||||||||||              TABLE OF CONTENT                  ||||||||||||||||||||||||||||||||||||
-****************************************************************************************************************
-****************************************************************************************************************
-
-01. Revolution slider
-02. Sticky header
-03. Prealoader
-04. Language switcher
-05. prettyPhoto
-06. BrandCarousel
-07. Testimonial carousel
-08. ScrollToTop 
-09. Cart Touch Spin
-10. PriceFilter
-11. Cart touch spin
-12. Fancybox activator
-13. ContactFormValidation
-14. Scoll to target
-15. PrettyPhoto
-
-****************************************************************************************************************
-||||||||||||||||||||||||||||            End TABLE OF CONTENT                ||||||||||||||||||||||||||||||||||||
-****************************************************************************************************************/
-
-
-
 "use strict";
-
-
 
 //Submenu Dropdown Toggle
 if($('.main-header li.dropdown ul').length){
@@ -818,7 +787,7 @@ jQuery(document).ready(function () {
         // mb.YTPlayer — opciones en JS (data-property + jQuery.data() suelen romper el eval interno del plugin)
         if ($("#bgndVideo").length) {
             $("#bgndVideo").YTPlayer({
-                videoURL: "https://www.youtube.com/watch?v=P9vm1Cc4r0A",
+                videoURL: "https://www.youtube.com/watch?v=6h-gVD95q5w",
                 containment: "self",
                 autoPlay: true,
                 mute: true,
