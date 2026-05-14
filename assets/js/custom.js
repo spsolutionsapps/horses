@@ -783,25 +783,36 @@ jQuery(document).ready(function () {
         SmoothMenuScroll ();
         bodylayout ();
         swithcerMenu ();
-        
-        // mb.YTPlayer — opciones en JS (data-property + jQuery.data() suelen romper el eval interno del plugin)
-        if ($("#bgndVideo").length) {
-            $("#bgndVideo").YTPlayer({
-                videoURL: "https://www.youtube.com/watch?v=6h-gVD95q5w",
-                containment: "self",
-                autoPlay: true,
-                mute: true,
-                startAt: 0,
-                opacity: 1,
-                showControls: false,
-                showYTLogo: false,
-                loop: true,
-                stopMovieOnBlur: false,
-                ratio: "16/9",
-                optimizeDisplay: true,
-                useOnMobile: true
+
+        (function hhHeroVideo() {
+            var wrap = document.querySelector('.main-slider.style1 .hh-hero-video-wrap');
+            if (!wrap) {
+                return;
+            }
+            var video = wrap.querySelector('video.hh-hero-video');
+            if (!video) {
+                return;
+            }
+            function tryPlay() {
+                var p = video.play();
+                if (p && typeof p.catch === 'function') {
+                    p.catch(function () {});
+                }
+            }
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                video.pause();
+                video.removeAttribute('autoplay');
+                return;
+            }
+            tryPlay();
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) {
+                    video.pause();
+                } else {
+                    tryPlay();
+                }
             });
-        }
+        })();
 
         (function hhPageLoader() {
             var $loader = $('#hh-page-loader');

@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="assets/css/hiddenbar.css">
     <link rel="stylesheet" href="assets/css/color.css">
     <link href="assets/css/color/theme-color.css" id="jssDefault" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/jquery.mb.YTPlayer.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
@@ -169,9 +168,21 @@
             <a href="index.html#home" class="hh-hero-logo" aria-label="Horses &amp; Humans — Inicio">
 <img src="assets/images/logo.png" alt="Horses &amp; Humans" width="605" height="88" loading="eager">
             </a>
-            <!-- YouTube Video Background with YTPlayer - Official Documentation -->
-            <!-- Opciones del player en custom.js: data-property rompe el parseo de jQuery + eval del plugin -->
-            <div id="bgndVideo" class="player"></div>
+            <!-- Fondo de vídeo: HTML5 (sin iframe). Exporta el tráiler a assets/videos/hero.mp4 y opc. hero.webm -->
+            <div class="hh-hero-video-wrap" aria-hidden="true">
+                <video
+                    class="hh-hero-video"
+                    poster="assets/images/hero-trailer-poster.jpg"
+                    playsinline
+                    muted
+                    loop
+                    autoplay
+                    preload="auto"
+                >
+                    <source src="assets/videos/hero.webm" type="video/webm">
+                    <source src="assets/videos/hero.mp4" type="video/mp4">
+                </video>
+            </div>
 
             <!-- Dark Overlay for better text visibility -->
             <div
@@ -1148,7 +1159,6 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/lazyload.js"></script>
     <script src="assets/js/scrollbar.js"></script>
-    <script src="assets/js/jquery.mb.YTPlayer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- thm custom script -->
     <script src="assets/js/custom.js"></script>

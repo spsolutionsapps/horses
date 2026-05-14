@@ -2072,33 +2072,30 @@ select:focus {
 .main-slider.style1 {
     margin-top: 0px;
 }
-/* Hero — mb.YTPlayer: el contenedor debe tener tamaño real (containment: self) */
+/* Hero — vídeo HTML5 + object-fit: cover (sin iframe; cubre el viewport sin bandas negras tipo 16:9 forzado) */
 .main-slider.style1 .slider-box{
     overflow: hidden;
-    background-color: #000;
+    background-color: #0a0a0a;
 }
-.main-slider.style1 #bgndVideo.player{
+.main-slider.style1 .hh-hero-video-wrap{
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    min-height: 100%;
     z-index: 0;
-    background-color: #000;
+    overflow: hidden;
+    background-color: #0a0a0a;
 }
-.main-slider.style1 #bgndVideo .mbYTP_wrapper,
-.main-slider.style1 .mb_YTPlayer .mbYTP_wrapper{
-    z-index: 0;
-}
-.main-slider.style1 #bgndVideo .mbYTP_wrapper iframe,
-.main-slider.style1 .mb_YTPlayer .mbYTP_wrapper iframe{
+.main-slider.style1 .hh-hero-video{
     position: absolute;
-    top: -2px;
-    left: -2px;
-    width: calc(100% + 4px) !important;
-    height: calc(100% + 4px) !important;
-    border: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    pointer-events: none;
 }
 .main-slider.style1 .hh-hero-logo{
     position: absolute;
